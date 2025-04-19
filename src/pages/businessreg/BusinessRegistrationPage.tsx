@@ -1,71 +1,128 @@
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
-import { Link, Outlet, useLocation } from "react-router-dom"
+import { cn } from "@/lib/utils";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Building2, FileText, Paperclip } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { showToast } from "@/components/ShowToast";
 
 const BusinessRegistrationPage = () => {
-  const location = useLocation()
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const routes = [
+    "/business-registration/general-info",
+    "/business-registration/share-info",
+    "/business-registration/attachment",
+  ];
+
+  const currentIndex = routes.findIndex((route) =>
+    location.pathname.includes(route.split("/").pop()!)
+  );
+
+  const handleNext = () => {
+    if (currentIndex < routes.length - 1) {
+      navigate(routes[currentIndex + 1]);
+    }
+  };
+
+  const handleCancel = () => {
+    navigate("/dashboard"); // Or wherever you want to navigate on cancel
+  };
+
   const isActiveLink = (path: string) => {
-    return location.pathname.includes(path)
-  }
+    return location.pathname.includes(path);
+  };
 
   return (
-    <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-6">Business Registration</h1>
-      
-      <div className="flex gap-4 mb-8">
-        <Link 
-          to="/business-registration/general-info"
-          className={cn(
-            "transition-all",
-            isActiveLink("general-info") 
-              ? "text-primary" 
-              : "text-muted-foreground hover:text-primary"
-          )}
-        >
-          {isActiveLink("general-info") ? (
-            <Badge>General Information</Badge>
-          ) : (
-            "General Information"
-          )}
-        </Link>
-
-        <Link 
-          to="/business-registration/share-info"
-          className={cn(
-            "transition-all",
-            isActiveLink("share-info") 
-              ? "text-primary" 
-              : "text-muted-foreground hover:text-primary"
-          )}
-        >
-          {isActiveLink("share-info") ? (
-            <Badge>Share Information</Badge>
-          ) : (
-            "Share Information"
-          )}
-        </Link>
-
-        <Link 
-          to="/business-registration/attachment"
-          className={cn(
-            "transition-all",
-            isActiveLink("attachment") 
-              ? "text-primary" 
-              : "text-muted-foreground hover:text-primary"
-          )}
-        >
-          {isActiveLink("attachment") ? (
-            <Badge>Attachments</Badge>
-          ) : (
-            "Attachments"
-          )}
-        </Link>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-700">
+            Business Registration
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Register your business with our simple three-step process
+          </p>
+        </div>
       </div>
-      
-      <Outlet />
-    </div>
-  )
-}
 
-export default BusinessRegistrationPage
+      <Card className="border-none shadow-none">
+        <nav className="flex border-b overflow-x-auto">
+          <Link
+            to="/business-registration/general-info"
+            className={cn(
+              "flex items-center gap-2 px-4 py-3 relative transition-colors hover:text-primary",
+              isActiveLink("general-info")
+                ? "text-primary font-medium"
+                : "text-muted-foreground"
+            )}
+          >
+            <Building2 className="h-4 w-4" />
+            <span>General Information</span>
+            {isActiveLink("general-info") && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary " />
+            )}
+          </Link>
+
+          <Separator orientation="vertical" className="h-6 my-auto" />
+
+          <Link
+            to="/business-registration/share-info"
+            className={cn(
+              "flex items-center gap-2 px-4 py-3 relative transition-colors hover:text-primary",
+              isActiveLink("share-info")
+                ? "text-primary font-medium"
+                : "text-muted-foreground"
+            )}
+          >
+            <FileText className="h-4 w-4" />
+            <span>Share Information</span>
+            {isActiveLink("share-info") && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            )}
+          </Link>
+
+          <Separator orientation="vertical" className="h-6 my-auto" />
+
+          <Link
+            to="/business-registration/attachment"
+            className={cn(
+              "flex items-center gap-2 px-4 py-3 relative transition-colors hover:text-primary",
+              isActiveLink("attachment")
+                ? "text-primary font-medium"
+                : "text-muted-foreground"
+            )}
+          >
+            <Paperclip className="h-4 w-4" />
+            <span>Attachments</span>
+            {isActiveLink("attachment") && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            )}
+          </Link>
+        </nav>
+
+        <div className="p-6">
+          <Outlet />
+
+          <div className="flex items-center justify-end gap-4 mt-8 pt-6 border-t text-muted-foreground">
+            <Button variant="outline" onClick={handleCancel}  className="cursor-pointer">
+              Cancel
+            </Button>
+
+            {currentIndex < routes.length - 1 ? (
+              <Button onClick={handleNext}  className="cursor-pointer">Save & Next</Button>
+            ) : (
+              <Button onClick={() => showToast.success(
+                "Registration Successful!",
+                "Your business registration has been submitted successfully."
+              )} className="cursor-pointer">Submit</Button>
+            )}
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+export default BusinessRegistrationPage;
