@@ -152,7 +152,7 @@ const AppLayout = () => {
 
         {/* Main Content */}
         <ScrollArea className="mx-auto w-full h-[calc(100vh-70px)] overflow-hidden">
-          <div className=" border-2 border-black px-8 py-4">
+          <div className="px-8 py-4">
             <Outlet />
             <Toaster />
           </div>
