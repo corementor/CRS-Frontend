@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -18,14 +18,13 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { Loader2 } from "lucide-react";
-// import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addressFormSchema } from "@/lib/schemaValidation";
+import { MapPin, Building, Phone, } from "lucide-react";
+// import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const AddressForm = () => {
-  //   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showError, setShowError] = useState(false);
+  // const [showError, setShowError] = useState(false);
 
   const form = useForm<z.infer<typeof addressFormSchema>>({
     resolver: zodResolver(addressFormSchema),
@@ -45,41 +44,58 @@ const AddressForm = () => {
     },
   });
   async function onSubmit(values: z.infer<typeof addressFormSchema>) {
-    // setIsSubmitting(true);
     try {
       console.log(values);
     } catch (error) {
       console.error("Error:", error);
-      setShowError(true);
-    } finally {
-      //   setIsSubmitting(false);
+      // setShowError(true);
     }
   }
 
   return (
-    <div className="w-full min-h-screen">
-      <Card className="w-[900px] pt-0">
-        <CardHeader className="bg-primary/5 py-3 rounded-t-md">
-          <CardTitle>Address Information</CardTitle>
+    <div className="w-full max-w-[900px] mx-auto z-0">
+      <Card className="shadow-sm">
+        <CardHeader className="border-b bg-card">
+          <div className="flex items-center gap-2">
+            <MapPin className="h-5 w-5 text-muted-foreground" />
+            <div className="space-y-0.5">
+              <CardTitle className="text-slate-600">
+                Address Information
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Please provide the complete address details for your business
+              </p>
+            </div>
+          </div>
         </CardHeader>
 
-        {showError && (
-          <p className="text-red-500 text-center border border-red-500 p-2 rounded-md mx-6 my-2">
-            Submission failed. Please try again.
-          </p>
-        )}
+        {/* {showError && (
+          <Alert variant="destructive" className="mx-6 my-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Submission failed. Please try again.
+            </AlertDescription>
+          </Alert>
+        )} */}
 
-        <CardContent>
+        <CardContent className="p-6">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* Physical Address Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Building className="h-4 w-4" />
+                  <h3 className="font-medium">Physical Address</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="headOfficeAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Head Office Address</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Head Office Address
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Enter address" {...field} />
                         </FormControl>
@@ -93,20 +109,25 @@ const AddressForm = () => {
                     name="country"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Country</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Country
+                        </FormLabel>
                         <FormControl>
                           <Input disabled {...field} />
                         </FormControl>
                       </FormItem>
                     )}
                   />
-
+                </div>
+                <div className="grid grid-cols-3 gap-4">
                   <FormField
                     control={form.control}
                     name="province"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Province</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Province
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -130,7 +151,9 @@ const AddressForm = () => {
                     name="district"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>District</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          District
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -154,7 +177,9 @@ const AddressForm = () => {
                     name="sector"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Sector</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Sector
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -173,14 +198,23 @@ const AddressForm = () => {
                     )}
                   />
                 </div>
+              </div>
 
-                <div className="space-y-6">
+              {/* Location Details Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <MapPin className="h-4 w-4" />
+                  <h3 className="font-medium">Location Details</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="cell"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Cell</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Cell
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -204,7 +238,9 @@ const AddressForm = () => {
                     name="village"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel>Village</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Village
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -222,13 +258,16 @@ const AddressForm = () => {
                       </FormItem>
                     )}
                   />
-
+                </div>
+                <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="streetName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Street Name</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Street Name
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Enter street name" {...field} />
                         </FormControl>
@@ -242,23 +281,11 @@ const AddressForm = () => {
                     name="poBox"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>P.O. Box</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          P.O. Box
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Enter P.O. Box" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="example@domain.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -267,16 +294,23 @@ const AddressForm = () => {
                 </div>
               </div>
 
-              <div className="mt-6 space-y-6">
+              {/* Contact Information Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Phone className="h-4 w-4" />
+                  <h3 className="font-medium">Contact Information</h3>
+                </div>
                 <div className="grid grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
-                    name="phoneNumber"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Email
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="+250" {...field} />
+                          <Input placeholder="example@domain.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -285,10 +319,29 @@ const AddressForm = () => {
 
                   <FormField
                     control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-muted-foreground">
+                          Phone Number
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="+250" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
                     name="fax"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Fax</FormLabel>
+                        <FormLabel className="text-muted-foreground">
+                          Fax
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Enter fax number" {...field} />
                         </FormControl>
@@ -298,6 +351,8 @@ const AddressForm = () => {
                   />
                 </div>
               </div>
+
+    
             </form>
           </Form>
         </CardContent>
