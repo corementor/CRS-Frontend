@@ -35,7 +35,7 @@ const companyDetailsSchema = z.object({
 });
 
 const CompanyDetails = () => {
-//   const [showError, setShowError] = useState(false);
+  //   const [showError, setShowError] = useState(false);
 
   const form = useForm<z.infer<typeof companyDetailsSchema>>({
     resolver: zodResolver(companyDetailsSchema),
@@ -53,7 +53,7 @@ const CompanyDetails = () => {
       console.log(values);
     } catch (error) {
       console.error("Error:", error);
-    //   setShowError(true);
+      //   setShowError(true);
     }
   }
 
@@ -168,12 +168,8 @@ const CompanyDetails = () => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="category1">
-                              Category 1
-                            </SelectItem>
-                            <SelectItem value="category2">
-                              Category 2
-                            </SelectItem>
+                            <SelectItem value="category1">Public</SelectItem>
+                            <SelectItem value="category2">Private</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -199,8 +195,16 @@ const CompanyDetails = () => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="type1">Type 1</SelectItem>
-                            <SelectItem value="type2">Type 2</SelectItem>
+                            <SelectItem value="type1">
+                              Limited by shares
+                            </SelectItem>
+                            <SelectItem value="type2">
+                              Limited by garantee
+                            </SelectItem>
+                            <SelectItem value="type1">
+                              Limited by shares and garantee
+                            </SelectItem>
+                            <SelectItem value="type2">Unlimited</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -233,6 +237,7 @@ const CompanyDetails = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
+                        <SelectItem value="director">Managing Director</SelectItem>
                           <SelectItem value="chairman">Chairman</SelectItem>
                           <SelectItem value="member">Member</SelectItem>
                         </SelectContent>
