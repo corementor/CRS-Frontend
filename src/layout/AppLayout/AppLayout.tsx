@@ -6,13 +6,11 @@ import {
   Snowflake,
   Users,
   Bell,
-  Search,
   Settings,
   HelpCircle,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,7 +34,7 @@ const AppLayout = () => {
   const getLinkClassName = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded flex items-center gap-2 ${
       isActive
-        ? "text-primary font-medium hover:bg-muted hover:text-primary"
+        ? "text-primary font-medium hover:bg-primary/5 hover:text-primary"
         : "text-muted-foreground font-light hover:bg-primary/5 hover:text-primary"
     }`;
 
@@ -95,26 +93,26 @@ const AppLayout = () => {
       <div className="flex flex-col">
         <header className="h-14 lg:h-[60px] border-b shadow px-6 flex items-center gap-4">
           <div className="flex-1 flex items-center gap-4">
-            <div className="relative w-96">
+            {/* <div className="relative w-96">
               <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search..."
                 className="pl-8 w-full h-9 bg-transparent"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative h-9 w-9">
+            <Button variant="ghost" size="icon" className="relative h-9 w-9 hover:bg-primary/5">
               <Bell className="h-4 w-4 text-muted-foreground" />
               <span className="absolute top-2 right-2 h-1.5 w-1.5 bg-red-400 rounded-full" />
             </Button>
 
-            <Button variant="ghost" size="icon" className="h-9 w-9">
+            <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-primary/5">
               <HelpCircle className="h-4 w-4 text-muted-foreground" />
             </Button>
 
-            <Button variant="ghost" size="icon" className="h-9 w-9">
+            <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-primary/5">
               <Settings className="h-4 w-4 text-muted-foreground" />
             </Button>
 

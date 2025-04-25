@@ -3,25 +3,21 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AddressForm from "./AddressForm";
 import CompanyDetails from "./CompanyDetails";
+import BusinessActivity from "./BusinessActivity";
 
 const GeneralInfo = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  // const [companyDetailsCompleted, setCompanyDetailsCompleted] = useState(false);
-
-  // const handleCompanyDetailsSubmit = (data: any) => {
-  //   console.log("Company Details:", data);
-  //   setCompanyDetailsCompleted(true);
-  //   setCurrentStep(2);
-  // };
-
-  // const handleAddressSubmit = (data: any) => {
-  //   console.log("Address Details:", data);
-  //   // Handle final submission or next step
-  // };
+  const totalSteps = 3;
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
     }
   };
 
@@ -40,6 +36,12 @@ const GeneralInfo = () => {
             currentStep >= 2 ? "bg-primary" : "bg-gray-200"
           }`}
         />
+        <div className="h-0.5 w-8 bg-gray-200" />
+        <div
+          className={`h-2 w-2 rounded-full ${
+            currentStep >= 3 ? "bg-primary" : "bg-gray-200"
+          }`}
+        />
       </div>
 
       {/* Form Steps */}
@@ -50,8 +52,8 @@ const GeneralInfo = () => {
             <div className="flex justify-end gap-4 text-muted-foreground">
               <Button
                 variant="outline"
-                onClick={() => setCurrentStep(2)}
-              className="cursor-pointer"
+                onClick={handleNext}
+                className="cursor-pointer"
               >
                 Next Step
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -62,13 +64,43 @@ const GeneralInfo = () => {
 
         {currentStep === 2 && (
           <div className="space-y-6">
+            <BusinessActivity />
+            <div className="flex justify-between text-muted-foreground">
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                className="cursor-pointer"
+              >
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Previous Step
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleNext}
+                className="cursor-pointer"
+              >
+                Next Step
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {currentStep === 3 && (
+          <div className="space-y-6">
             <AddressForm />
             <div className="flex justify-between text-muted-foreground">
-              <Button variant="outline" onClick={handleBack}  className="cursor-pointer">
-                <ChevronLeft className="h-4 w-4" />
-                Previous
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                className="cursor-pointer"
+              >
+                <ChevronLeft className="mr-2 h-4 w-4" />
+                Previous Step
               </Button>
-              <Button type="submit"  className="cursor-pointer">Save</Button>
+              <Button type="submit" className="cursor-pointer">
+                Complete Registration
+              </Button>
             </div>
           </div>
         )}
