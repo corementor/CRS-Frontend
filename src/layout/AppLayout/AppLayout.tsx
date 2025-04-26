@@ -8,12 +8,10 @@ import {
   Bell,
   Settings,
   HelpCircle,
-  Search,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
