@@ -59,7 +59,7 @@ const CompanyDetails = () => {
 
   return (
     <div className="w-full max-w-[900px] mx-auto">
-      <Card className="shadow-sm">
+      <Card className="shadow-none">
         <CardHeader className="border-b bg-card">
           <div className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-muted-foreground" />

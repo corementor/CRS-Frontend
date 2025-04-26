@@ -35,7 +35,7 @@ const BusinessRegistrationPage = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  bg-white p-8 rounded-2xl ">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-gray-700">
@@ -48,7 +48,7 @@ const BusinessRegistrationPage = () => {
       </div>
 
       <Card className="border-none shadow-none">
-        <nav className="flex border-b overflow-x-auto">
+        <nav className="flex border-none overflow-x-auto">
           <Link
             to="/business-registration/general-info"
             className={cn(
