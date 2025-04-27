@@ -111,12 +111,12 @@ const BusinessRegistrationPage = () => {
             </Button>
 
             {currentIndex < routes.length - 1 ? (
-              <Button onClick={handleNext}  className="cursor-pointer">Save & Next</Button>
+              <Button onClick={handleNext}  className="cursor-pointer text-white font-bold">Save & Next</Button>
             ) : (
               <Button onClick={() => showToast.success(
                 "Registration Successful!",
                 "Your business registration has been submitted successfully."
-              )} className="cursor-pointer">Submit</Button>
+              )} className="cursor-pointer text-white font-bold">Submit</Button>
             )}
           </div>
         </div>

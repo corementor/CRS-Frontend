@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
+        index: true,
+        element: <Navigate to="business-registration" replace />,
+      },
+      {
         path: "business-registration",
         element: <BusinessRegistrationPage />,
         children: [

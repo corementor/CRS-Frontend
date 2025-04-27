@@ -201,7 +201,7 @@ const RegisterPage = () => {
                             />
                             <button
                               type="button"
-                              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                              className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                               onClick={toggleShowPassword}
                             >
                               {showPassword ? (
@@ -224,7 +224,7 @@ const RegisterPage = () => {
                         Creating Account...
                       </Button>
                     ) : (
-                      <Button type="submit" className="w-full h-11">
+                      <Button type="submit" className="w-full h-11 text-white font-bold cursor-pointer">
                         Create Account
                       </Button>
                     )}
