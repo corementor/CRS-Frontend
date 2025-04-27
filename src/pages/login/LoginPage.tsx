@@ -24,10 +24,12 @@ import { Input } from "@/components/ui/input";
 import backgroundImage from "@/assets/login-background.jpg";
 import logo from "@/assets/logo.png";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [showError, setShowError] = useState(false);
   const toggleShowPassword = () => {
@@ -46,6 +48,7 @@ const LoginPage = () => {
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     console.log(values);
     setIsSubmitting(true);
+    navigate("/");
     // try {
     //   const response = await axios.post(
     //     `${Api.BASE_URL}/${Api.AUTH_LOGIN}`,
@@ -115,7 +118,7 @@ const LoginPage = () => {
                 Enter your credentials to access your account
               </CardDescription>
             </CardHeader>
-{/* 
+            {/* 
             {showError && (
               <p className="text-red-500 text-center border border-red-500 p-2 rounded-md mx-6 my-2 bg-red-50">
                 Invalid credentials
@@ -166,7 +169,7 @@ const LoginPage = () => {
                             />
                             <button
                               type="button"
-                              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                              className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                               onClick={toggleShowPassword}
                             >
                               {showPassword ? (
@@ -189,7 +192,10 @@ const LoginPage = () => {
                         Signing in...
                       </Button>
                     ) : (
-                      <Button type="submit" className="w-full h-11">
+                      <Button
+                        type="submit"
+                        className="w-full h-11 text-white font-bold cursor-pointer"
+                      >
                         Sign In
                       </Button>
                     )}
@@ -217,7 +223,6 @@ const LoginPage = () => {
               </Form>
             </CardContent>
           </Card>
-         
         </motion.div>
       </motion.div>
     </>

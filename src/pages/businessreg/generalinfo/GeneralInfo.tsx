@@ -4,9 +4,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import AddressForm from "./AddressForm";
 import CompanyDetails from "./CompanyDetails";
 import BusinessActivity from "./BusinessActivity";
+import { showToast } from "@/components/ShowToast";
+import { useNavigate } from "react-router-dom";
 
 const GeneralInfo = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const navigate = useNavigate();
   const totalSteps = 3;
 
   const handleBack = () => {
@@ -98,7 +101,31 @@ const GeneralInfo = () => {
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Previous Step
               </Button>
-              <Button type="submit" className="cursor-pointer">
+              <Button
+                type="submit"
+                className="cursor-pointer text-white font-bold"
+                onClick={async () => {
+                  // Set loading state
+                  const button = document.activeElement as HTMLButtonElement;
+                  if (button) {
+                    button.disabled = true;
+                    button.innerHTML =
+                      '<span class="animate-pulse">Submitting...</span>';
+                  }
+
+                  // Simulate API delay
+                  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+                  // Show success message
+                  showToast.success(
+                    "Registration Successful!",
+                    "Your business registration has been submitted successfully."
+                  );
+
+                  // Navigate after a brief pause
+                  setTimeout(() => navigate("/"), 500);
+                }}
+              >
                 Complete Registration
               </Button>
             </div>
